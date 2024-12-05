@@ -8,6 +8,7 @@ export default function Home() {
   const [exercises, setExercises] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState<string>("");
 
   const fetchExercises = async () => {
     setLoading(true);
@@ -42,9 +43,9 @@ export default function Home() {
     <main className="max-w-4xl mx-auto mt-4">
       <div className="text-center my-5 flex flex-col gap-4">
         <h1 className="text-2xl font-bold">Meus exercícios</h1>
-        <AddExercise onAdd={fetchExercises} />
+        <AddExercise onAdd={fetchExercises} query={query} setQuery={setQuery} />
       </div>
-      <ExercisesList exercises={exercises} />
+      <ExercisesList exercises={exercises} query={query}/>
     </main>
   );
 }

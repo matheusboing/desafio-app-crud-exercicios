@@ -8,8 +8,17 @@ interface ExerciseListProps {
   exercises: IExercise[];
 }
 
-const ExercisesList: React.FC<ExerciseListProps> = ({ exercises }) => {
-  
+const ExercisesList: React.FC<ExerciseListProps & { query: string }> = ({ exercises, query }) =>{
+  const keys = ['text']
+
+  const search = (data: IExercise[]) => {
+    return data.filter((item) =>
+      keys.some((key) => item[key].toLowerCase().includes(query.toLowerCase()))
+    );
+  };
+
+  const filteredExercises = search(exercises);
+
   return (
     <div className='overflow-x-auto'>
       <table className='table w-full'>
@@ -20,7 +29,7 @@ const ExercisesList: React.FC<ExerciseListProps> = ({ exercises }) => {
           </tr>
         </thead>
         <tbody>
-          {exercises.map((exercise) => (
+          {filteredExercises.map((exercise) => (
             <Exercise key={exercise.id} exercise={exercise} />
           ))}
         </tbody>

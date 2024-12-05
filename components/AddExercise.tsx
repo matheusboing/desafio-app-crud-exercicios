@@ -6,7 +6,15 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
-const AddExercise = ({ onAdd }: { onAdd: () => void }) => {
+const AddExercise = ({
+  onAdd,
+  query,
+  setQuery,
+}: {
+  onAdd: () => void;
+  query: string;
+  setQuery: (value: string) => void;
+}) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [newExerciseValue, setNewExerciseValue] = useState<string>("");
   const router = useRouter();
@@ -43,9 +51,17 @@ const AddExercise = ({ onAdd }: { onAdd: () => void }) => {
           Adicionar um novo exercício <AiOutlinePlus className="ml-15" size={18} />
         </Button>
 
-        <Button onClick={() => router.push('/workouts')} className="btn btn-primary w-200">
+        <Button onClick={() => router.push("/workouts")} className="btn btn-primary w-200">
           Meus Treinos
         </Button>
+
+        <input
+          type="text"
+          placeholder="Buscar exercícios"
+          className="input input-bordered w-full"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
       </div>
 
       <Modal modalOpen={modalOpen} setModalOpen={setModalOpen}>
